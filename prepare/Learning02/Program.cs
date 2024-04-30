@@ -1,12 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-
-
 class Program
 {
     static void Main(string[] args)
     {
+        Resume resume = new Resume();
+
         Job job1 = new Job();
         job1._company = "Crown Graphics";
         job1._jobTitle = "Installer";
@@ -19,22 +19,12 @@ class Program
         job2._startYear = 2024;
         job2._endYear = 2028;
 
-        job1.Display();
-        job2.Display();
+        resume._jobs.Add(job1);
+        resume._jobs.Add(job2);
+
+        resume.Display();
 
 
         //Console.ReadLine();
-    }
-    public class Job
-    {
-        public string _company;
-        public string _jobTitle;
-        public int _startYear;
-        public int _endYear; 
-
-        public void Display()
-        {
-            Console.WriteLine($"{_jobTitle} ({_company}) {_startYear}-{_endYear}");
-        }
     }
 }
