@@ -1,4 +1,4 @@
-// Class to manage Goals
+using System.Xml.Serialization;
 public class GoalManager
 {
     private List<Goal> goals = new List<Goal>();
