@@ -1,16 +1,15 @@
 // Base class for Goals
-[Serializable]
 public abstract class Goal
 {
-    public string Name { get; set; }
+    public string _name { get; set; }
     public int Points { get; protected set; }
     public bool IsCompleted { get; protected set; }
 
-    protected Goal() { }
+    public Goal() { }
 
     public Goal(string name, int points)
     {
-        Name = name;
+        _name = name;
         Points = points;
         IsCompleted = false;
     }

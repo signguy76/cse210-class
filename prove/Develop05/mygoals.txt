@@ -1,0 +1,38 @@
+{
+  "Goals": [
+    {
+      "Type": "SimpleGoal",
+      "_name": "Goal number one",
+      "Points": 3,
+      "IsCompleted": false
+    },
+    {
+      "Type": "SimpleGoal",
+      "_name": "Goal number two.",
+      "Points": 2,
+      "IsCompleted": false
+    },
+    {
+      "Type": "SimpleGoal",
+      "_name": "Goal number 3",
+      "Points": 3,
+      "IsCompleted": false
+    },
+    {
+      "Type": "EternalGoal",
+      "_name": "Scripture reading daily.",
+      "Points": 4,
+      "IsCompleted": false
+    },
+    {
+      "Type": "ChecklistGoal",
+      "_target": 2,
+      "_amountCompleted": 0,
+      "_bonus": 3,
+      "_name": "Temple attendance.",
+      "Points": 3,
+      "IsCompleted": false
+    }
+  ],
+  "TotalScore": 0
+}

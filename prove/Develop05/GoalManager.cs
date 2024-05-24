@@ -1,8 +1,11 @@
-using System.Xml.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+// Class to manage Goals
 public class GoalManager
 {
-    private List<Goal> goals = new List<Goal>();
-    private int totalScore = 0;
+    private List<Goal> _goals = new List<Goal>();
+    private int _totalScore = 0;
 
     public void CreateGoal()
     {
@@ -22,19 +25,19 @@ public class GoalManager
         switch (choice)
         {
             case 1:
-                goals.Add(new SimpleGoal(name, points));
+                _goals.Add(new SimpleGoal(name, points));
                 break;
             case 2:
-                goals.Add(new EternalGoal(name, points));
+                _goals.Add(new EternalGoal(name, points));
                 break;
             case 3:
                 Console.Write("Enter target count: ");
-                int targetCount = int.Parse(Console.ReadLine());
+                int target = int.Parse(Console.ReadLine());
 
                 Console.Write("Enter bonus points: ");
                 int bonusPoints = int.Parse(Console.ReadLine());
 
-                goals.Add(new ChecklistGoal(name, points, targetCount, bonusPoints));
+                _goals.Add(new ChecklistGoal(name, points, target, bonusPoints));
                 break;
         }
     }
@@ -42,7 +45,7 @@ public class GoalManager
     public void ListGoals()
     {
         Console.WriteLine("Your Goals:");
-        foreach (var goal in goals)
+        foreach (var goal in _goals)
         {
             Console.WriteLine(goal.DisplayStatus());
         }
@@ -52,56 +55,55 @@ public class GoalManager
     {
         Console.WriteLine("Select a goal to record an event:");
 
-        for (int i = 0; i < goals.Count; i++)
+        for (int i = 0; i < _goals.Count; i++)
         {
-            Console.WriteLine($"{i + 1}. {goals[i].Name}");
+            Console.WriteLine($"{i + 1}. {_goals[i]._name}");
         }
 
         int choice = int.Parse(Console.ReadLine());
-        int pointsEarned = goals[choice - 1].RecordEvent();
-        totalScore += pointsEarned;
+        int pointsEarned = _goals[choice - 1].RecordEvent();
+        _totalScore += pointsEarned;
 
-        Console.WriteLine($"You earned {pointsEarned} points! Total score: {totalScore}");
+        Console.WriteLine($"You earned {pointsEarned} points! Total score: {_totalScore}");
     }
 
     public void SaveGoals(string filename)
     {
-        XmlSerializer serializer = new XmlSerializer(typeof(GoalData));
-
-        using (FileStream stream = new FileStream(filename, FileMode.Create))
+        var options = new JsonSerializerOptions
         {
-            GoalData data = new GoalData
-            {
-                Goals = goals,
-                TotalScore = totalScore
-            };
+            WriteIndented = true,
+            Converters = { new JsonStringEnumConverter(), new GoalConverter() }
+        };
 
-            serializer.Serialize(stream, data);
-        }
+        var data = new GoalData
+        {
+            Goals = _goals,
+            TotalScore = _totalScore
+        };
+        File.WriteAllText(filename, JsonSerializer.Serialize(data, options));
     }
 
     public void LoadGoals(string filename)
     {
         if (File.Exists(filename))
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(GoalData));
-
-            using (FileStream stream = new FileStream(filename, FileMode.Open))
+            var options = new JsonSerializerOptions
             {
-                GoalData data = (GoalData)serializer.Deserialize(stream);
-                goals = data.Goals;
-                totalScore = data.TotalScore;
-            }
+                Converters = { new GoalConverter() }
+            };
+
+            var data = JsonSerializer.Deserialize<GoalData>(File.ReadAllText(filename), options);
+            _goals = data.Goals;
+            _totalScore = data.TotalScore;
         }
     }
 
     public void DisplayScore()
     {
-        Console.WriteLine($"Total score: {totalScore}");
+        Console.WriteLine($"Total score: {_totalScore}");
     }
 
-    [Serializable]
-    public class GoalData
+    private class GoalData
     {
         public List<Goal> Goals { get; set; }
         public int TotalScore { get; set; }

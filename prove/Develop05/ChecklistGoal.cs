@@ -1,30 +1,29 @@
 // Derived class for Checklist Goals
-[Serializable]
 public class ChecklistGoal : Goal
 {
-    public int TargetCount { get; set; }
-    public int CurrentCount { get; set; }
-    public int BonusPoints { get; set; }
+    public int _target { get; set; }
+    public int _amountCompleted { get; set; }
+    public int _bonus { get; set; }
 
     public ChecklistGoal() { }
 
-    public ChecklistGoal(string name, int points, int targetCount, int bonusPoints)
+    public ChecklistGoal(string name, int points, int target, int bonusPoints)
         : base(name, points)
     {
-        TargetCount = targetCount;
-        CurrentCount = 0;
-        BonusPoints = bonusPoints;
+        _target = target;
+        _amountCompleted = 0;
+        _bonus = bonusPoints;
     }
 
     public override int RecordEvent()
     {
-        if (CurrentCount < TargetCount)
+        if (_amountCompleted < _target)
         {
-            CurrentCount++;
-            if (CurrentCount == TargetCount)
+            _amountCompleted++;
+            if (_amountCompleted == _target)
             {
                 IsCompleted = true;
-                return Points + BonusPoints;
+                return Points + _bonus;
             }
             return Points;
         }
@@ -33,6 +32,6 @@ public class ChecklistGoal : Goal
 
     public override string DisplayStatus()
     {
-        return IsCompleted ? $"[X] {Name} (Completed {CurrentCount}/{TargetCount} times)" : $"[ ] {Name} (Completed {CurrentCount}/{TargetCount} times)";
+        return IsCompleted ? $"[X] {_name} (Completed {_amountCompleted}/{_target} times)" : $"[ ] {_name} (Completed {_amountCompleted}/{_target} times)";
     }
 }

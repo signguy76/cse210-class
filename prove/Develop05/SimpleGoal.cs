@@ -1,5 +1,4 @@
 // Derived class for Simple Goals
-[Serializable]
 public class SimpleGoal : Goal
 {
     public SimpleGoal() { }
@@ -18,6 +17,6 @@ public class SimpleGoal : Goal
 
     public override string DisplayStatus()
     {
-        return IsCompleted ? $"[X] {Name}" : $"[ ] {Name}";
+        return IsCompleted ? $"[X] {_name}" : $"[ ] {_name}";
     }
 }

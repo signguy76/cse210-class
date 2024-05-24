@@ -1,5 +1,4 @@
 // Derived class for Eternal Goals
-[Serializable]
 public class EternalGoal : Goal
 {
     public EternalGoal() { }
@@ -13,6 +12,6 @@ public class EternalGoal : Goal
 
     public override string DisplayStatus()
     {
-        return $"[∞] {Name}";
+        return $"[∞] {_name}";
     }
 }

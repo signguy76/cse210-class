@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Xml.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 // Main program class
-class Program
+public class Program
 {
     static void Main(string[] args)
     {
@@ -17,7 +19,8 @@ class Program
             Console.WriteLine("3. Save Goals");
             Console.WriteLine("4. Load Goals");
             Console.WriteLine("5. Record Event");
-            Console.WriteLine("6. Quit");
+            Console.WriteLine("6. Display Score");
+            Console.WriteLine("7. Quit");
 
             int choice = int.Parse(Console.ReadLine());
 
@@ -43,6 +46,9 @@ class Program
                     goalManager.RecordEvent();
                     break;
                 case 6:
+                    goalManager.DisplayScore();
+                    break;
+                case 7:
                     return;
             }
         }
