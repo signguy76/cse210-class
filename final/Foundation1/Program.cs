@@ -42,7 +42,7 @@ public class Program
 
             foreach (Comment comment in video.GetComments())
             {
-                Console.WriteLine($" - {comment._commenterName}: {comment._text}");
+                Console.WriteLine($"Comment from - {comment._commenterName}: {comment._text}");
             }
             Console.WriteLine();
         }
