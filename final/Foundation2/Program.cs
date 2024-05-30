@@ -33,11 +33,11 @@ public class Program
 
     private static void DisplayOrderDetails(Order order)
     {
-        Console.WriteLine("Packing Label:");
+        Console.WriteLine("Packing Label:\n");
         Console.WriteLine(order.GetPackingLabel());
         Console.WriteLine(new string('*', 10));
         Console.WriteLine();
-        Console.WriteLine("Shipping Label:");
+        Console.WriteLine("Shipping Label:\n");
         Console.WriteLine(order.GetShippingLabel());
         Console.WriteLine($"Total Cost: ${order.GetTotalCost():0.00}");
         Console.WriteLine(new string('-', 20));
