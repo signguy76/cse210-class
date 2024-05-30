@@ -35,6 +35,8 @@ public class Program
     {
         Console.WriteLine("Packing Label:");
         Console.WriteLine(order.GetPackingLabel());
+        Console.WriteLine(new string('*', 10));
+        Console.WriteLine();
         Console.WriteLine("Shipping Label:");
         Console.WriteLine(order.GetShippingLabel());
         Console.WriteLine($"Total Cost: ${order.GetTotalCost():0.00}");
